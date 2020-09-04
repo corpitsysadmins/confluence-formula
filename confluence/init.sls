@@ -33,6 +33,8 @@ confluence_running:
   service.running:
     - name: {{ confluence.service_name }}
     - enable: True
+    - require:
+      - confluence_installation
 
 {%- else -%}
 
