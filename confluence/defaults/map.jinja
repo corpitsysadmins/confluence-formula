@@ -1,0 +1,18 @@
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
+
+{## Start imports as  ##}
+{% import_yaml 'confluence/defaults/defaults.yaml' as defaults %}
+{% import_yaml 'confluence/defaults/os_family.yaml' as os_family %}
+{% import_yaml 'confluence/defaults/os.yaml' as os %}
+{% import_yaml 'confluence/defaults/osfinger.yaml' as osfinger %}
+
+{% set confluence = salt['grains.filter_by'](defaults, default='defaults',
+    merge=salt['grains.filter_by'](os_family, grain='os_family',
+      merge=salt['grains.filter_by'](os, grain='os',
+        merge=salt['grains.filter_by'](osfinger, grain='osfinger',
+          merge=salt['pillar.get']('confluence')
+        )
+      )
+    )
+) %}
