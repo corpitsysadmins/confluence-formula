@@ -30,16 +30,12 @@ confluence_installation:
       
 {% endif -%}
 
-{% if confluence.manage_service_start | to_bool -%}
-
 confluence_running:  
   service.running:
     - name: {{ confluence.service_name }}
     - enable: True
     - require:
       - confluence_installation
-
-{% endif -%}
 
 {%- else -%}
 
