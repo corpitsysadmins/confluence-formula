@@ -16,7 +16,7 @@ confluence_installation:
     - source: salt://confluence/generic-template.jinja
     - template: jinja
     - context: 
-        root_element: {{ confluence["confluence.cfg"] }}
+        root_element: {{ confluence["confluence.cfg"]|json }}
     - user: {{ confluence.user_name }}
     - group: {{ confluence.user_name }}
     - mode: 640
