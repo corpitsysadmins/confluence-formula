@@ -11,6 +11,7 @@ confluence_installation:
 
 {% if confluence["confluence.cfg"] is defined -%}
 
+{%- set confluence.manage_service_start = true %}
 {{ confluence.confluence_home }}/confluence.cfg.xml:
   file.managed:
     - source: salt://confluence/generic-template.jinja
