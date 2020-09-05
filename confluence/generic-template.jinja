@@ -1,9 +1,9 @@
 {%- set str_from_bool = {True : 'true', False : 'false'} -%}
-{%- set block_separator = '	' -%}
-{% macro xml_block(element, depth = 0) -%}
+{%- set block_separator = '  ' -%}
+{%- macro xml_block(element, depth = 0) -%}
  {%- if element is mapping %}
   {%- set e = namespace() %}
-  {%- set e.attributes = [] %}
+  {%- set e.attributes = [] -%}
   {%- for key, value in element.items() %}
    {%- if value is sequence %}
     {%- set e.tagName = key %}
@@ -15,22 +15,26 @@
    {%- else %}
 <!--The value {{ value }} from the element {{ element }} is not supported  -->
    {%- endif %}
-  {%- endfor %}
+  {%- endfor -%}
   {%- if not e.childs|length %}
-{{ block_separator *  depth ~ '<' ~ ([e.tagName] + e.attributes)|join(' ') ~ ' />'  -}}
-  {%- elif (e.childs|length == 1) and (e.childs[0] is string) %}
-{{ block_separator *  depth ~ '<' ~ ([e.tagName] + e.attributes)|join(' ') ~ '>' ~ e.childs[0] ~ '</' ~ e.tagName ~ '>' -}}
-  {%- else %}
-{{ block_separator *  depth ~ '<' ~ ([e.tagName] + e.attributes)|join(' ') ~ '>' -}}
-   {%- for child in e.childs %}
+{{ block_separator *  depth ~ '<' ~ ([e.tagName] + e.attributes)|join(' ') ~ ' />'  }}
+  {%- elif (e.childs|length == 1) and ((e.childs[0] is string) or (e.childs[0] is not sequence)) %}
+   {%- if e.childs[0] is boolean %}
+{{ block_separator *  depth ~ '<' ~ ([e.tagName] + e.attributes)|join(' ') ~ '>' ~ str_from_bool[e.childs[0]] ~ '</' ~ e.tagName ~ '>' }}
+   {%- else %}
+{{ block_separator *  depth ~ '<' ~ ([e.tagName] + e.attributes)|join(' ') ~ '>' ~ e.childs[0] ~ '</' ~ e.tagName ~ '>' }}
+   {%- endif %}
+  {%- else -%}
+{{ block_separator *  depth ~ '<' ~ ([e.tagName] + e.attributes)|join(' ') ~ '>' }}
+   {%- for child in e.childs -%}
 {{ xml_block(child, depth + 1) }}
    {%- endfor %}
-{{ block_separator *  depth ~ '</' ~ e.tagName ~ '>' -}}
+{{ block_separator *  depth ~ '</' ~ e.tagName ~ '>' }}
   {%- endif %}
- {%- else %}
+ {%- else -%}
 {{ element }}
  {%- endif %}
-{% endmacro -%}
+{%- endmacro -%}
 <?xml version="1.0" encoding="UTF-8"?>
 
 {{ xml_block(root_element) }}
