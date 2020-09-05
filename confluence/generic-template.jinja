@@ -2,29 +2,30 @@
 {%- set block_separator = '	' -%}
 {% macro xml_block(element, depth = 0) -%}
  {%- if element is mapping %}
-  {% set attributes = [] %}
+  {%- set e = namespace() %}
+  {%- set e.attributes = [] %}
   {%- for key, value in element.items() %}
    {%- if value is sequence %}
-    {% set tagName = key %}
-    {% set childs = value %}
+    {%- set e.tagName = key %}
+    {%- set e.childs = value %}
    {%- elif value is string %}
-    {% do attributes.append(key + '="' + value + '"') %}
+    {%- do e.attributes.append(key + '="' + value + '"') %}
    {%- elif value is boolean %}
-    {% do attributes.append(key + '="' + str_from_bool[value] + '"') %}
+    {%- do e.attributes.append(key + '="' + str_from_bool[value] + '"') %}
    {%- else %}
 <!--The value {{ value }} from the element {{ element }} is not supported  -->
    {%- endif %}
   {%- endfor %}
-  {%- if not childs|length %}
-{{ block_separator *  depth ~ '<' ~ ([tagName] + attributes)|join(' ') ~ ' />'  -}}
-  {%- elif (childs|length == 1) and (childs[0] is string) %}
-{{ block_separator *  depth ~ '<' ~ ([tagName] + attributes)|join(' ') ~ '>' ~ childs[0] ~ '</' ~ tagName ~ '>' -}}
+  {%- if not e.childs|length %}
+{{ block_separator *  depth ~ '<' ~ ([e.tagName] + e.attributes)|join(' ') ~ ' />'  -}}
+  {%- elif (e.childs|length == 1) and (e.childs[0] is string) %}
+{{ block_separator *  depth ~ '<' ~ ([e.tagName] + e.attributes)|join(' ') ~ '>' ~ e.childs[0] ~ '</' ~ e.tagName ~ '>' -}}
   {%- else %}
-{{ block_separator *  depth ~ '<' ~ ([tagName] + attributes)|join(' ') ~ '>' -}}
-   {%- for child in childs %}
+{{ block_separator *  depth ~ '<' ~ ([e.tagName] + e.attributes)|join(' ') ~ '>' -}}
+   {%- for child in e.childs %}
 {{ xml_block(child, depth + 1) }}
    {%- endfor %}
-{{ block_separator *  depth ~ '</' ~ tagName ~ '>' -}}
+{{ block_separator *  depth ~ '</' ~ e.tagName ~ '>' -}}
   {%- endif %}
  {%- else %}
 {{ element }}
