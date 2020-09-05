@@ -22,19 +22,19 @@ confluence_installation:
     - mode: 640
     - require:
       - confluence_installation
-    - require_in:
-      - confluence_running
-    - watch_in:
-      - confluence_running
+#    - require_in:
+#      - confluence_running
+#    - watch_in:
+#      - confluence_running
       
 {% endif -%}
 
-confluence_running:  
-  service.running:
-    - name: {{ confluence.service_name }}
-    - enable: True
-    - require:
-      - confluence_installation
+#confluence_running:  
+#  service.running:
+#    - name: {{ confluence.service_name }}
+#    - enable: True
+#    - require:
+#      - confluence_installation
 
 {%- else -%}
 
