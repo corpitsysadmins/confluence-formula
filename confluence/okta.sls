@@ -1,5 +1,5 @@
 {%- from "./defaults/map.jinja" import confluence with context -%}
-{%- from "./defaults/okta.jinja" import okta with context -%}
+{%- from "confluence/defaults/okta.jinja" import okta with context -%}
 
 {% if (okta is defined) and (okta.use is defined) -%}
 
