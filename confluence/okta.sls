@@ -36,8 +36,6 @@
 #    - watch_in:
 #      - confluence_running
 
-{% endif -%}
-
 {%- else -%}
 
 #remove Okta stuff
