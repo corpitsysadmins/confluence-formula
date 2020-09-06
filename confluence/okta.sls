@@ -28,6 +28,7 @@
 {{ confluence.install_path }}/confluence/WEB-INF/lib/{{ okta.okta_confluence_jar }}:
   file.managed:
     - source: https://dev.okta.com/static/toolkits/{{ okta.okta_confluence_jar }}
+    - skip_verify: true
     - user: {{ confluence.user_name }}
     - group: {{ confluence.user_name }}
     - mode: 640
