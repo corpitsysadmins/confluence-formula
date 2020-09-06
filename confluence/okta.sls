@@ -9,7 +9,8 @@
 
 {{ confluence.install_path }}/conf/okta-config-confluence.xml:
   file.managed:
-    - contents: {{ okta.configuration }}
+    - contents: |
+{{ okta.configuration }}
     - user: {{ confluence.user_name }}
     - group: {{ confluence.user_name }}
     - mode: 640
