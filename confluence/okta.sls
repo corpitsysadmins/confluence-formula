@@ -9,10 +9,10 @@
 
 {{ confluence.install_path }}/conf/okta-config-confluence.xml:
   file.managed:
-    - source: salt://confluence/generic-template.jinja
+    - source: salt://confluence/generic-xml-template.jinja
     - template: jinja
     - context: 
-        root_element: {{ okta.configuration }}
+        root_element: {{ okta.configuration|json }}
     - user: {{ confluence.user_name }}
     - group: {{ confluence.user_name }}
     - mode: 640

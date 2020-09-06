@@ -13,7 +13,7 @@ confluence_installation:
 
 {{ confluence.confluence_home }}/confluence.cfg.xml:
   file.managed:
-    - source: salt://confluence/generic-template.jinja
+    - source: salt://confluence/generic-xml-template.jinja
     - template: jinja
     - context: 
         root_element: {{ confluence["confluence.cfg"]|json }}
