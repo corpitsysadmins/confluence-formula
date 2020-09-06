@@ -23,7 +23,17 @@
 
 #2. Then, you need to update your [confluence_webdir]/WEB-INF/classes/seraph-config.xml
 
-#3. Create new file okta_acs.jsp in your [confluence_install_dir]/confluence folder, then paste this code into it
+{{ confluence.install_path }}/confluence/okta_acs.jsp:
+  file.managed:
+    - contents: |
+        {{ okta.okta_acs_jsp | indent(9) }}
+    - user: {{ confluence.user_name }}
+    - group: {{ confluence.user_name }}
+    - mode: 640
+#    - require_in:
+#      - confluence_running
+#    - watch_in:
+#      - confluence_running
 
 {{ confluence.install_path }}/confluence/WEB-INF/lib/{{ okta.okta_confluence_jar }}:
   file.managed:
