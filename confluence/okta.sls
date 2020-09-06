@@ -12,8 +12,7 @@
     - source: salt://confluence/generic-xml-template.jinja
     - template: jinja
     - context: 
-        root_element:
-          configuration: {{ okta.configuration }}
+        root_element: {{ {'configuration': okta.configuration}|json }}
     - user: {{ confluence.user_name }}
     - group: {{ confluence.user_name }}
     - mode: 640
