@@ -25,7 +25,18 @@
 
 #3. Create new file okta_acs.jsp in your [confluence_install_dir]/confluence folder, then paste this code into it
 
-#4. After that, you need to copy okta-confluence.jar to the [confluence_webdir]/WEB-INF/lib directory
+{{ confluence.install_path }}/confluence/WEB-INF/lib/{{ okta.okta_confluence_jar }}:
+  file.managed:
+    - source: https://dev.okta.com/static/toolkits/{{ okta.okta_confluence_jar }}
+    - user: {{ confluence.user_name }}
+    - group: {{ confluence.user_name }}
+    - mode: 640
+#    - require_in:
+#      - confluence_running
+#    - watch_in:
+#      - confluence_running
+
+{% endif -%}
 
 {%- else -%}
 
