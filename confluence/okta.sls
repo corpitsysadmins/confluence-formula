@@ -5,18 +5,11 @@
 
 {% if okta.use | to_bool -%}
 
-{% if (okta.configuration_content is defined) or (okta.configuration is defined) -%}
+{% if okta.configuration is defined -%}
 
 {{ confluence.install_path }}/conf/okta-config-confluence.xml:
   file.managed:
-{%- if (okta.configuration_content is defined) %}
-    - contents: {{ okta.configuration_content }}
-{%- elif okta.configuration is defined %}
-    - source: salt://confluence/generic-xml-template.jinja
-    - template: jinja
-    - context: 
-        root_element: {{ {'configuration': okta.configuration}|json }}
-{%- endif %}
+    - contents: {{ okta.configuration }}
     - user: {{ confluence.user_name }}
     - group: {{ confluence.user_name }}
     - mode: 640
