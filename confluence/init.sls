@@ -26,7 +26,18 @@ confluence_installation:
 #      - confluence_running
 #    - watch_in:
 #      - confluence_running
-      
+
+{% endif -%}
+
+{% if confluence.keystore_file is defined -%}
+  
+{{ confluence.install_path }}/conf/ssl_keystore.pkcs12:
+  file.managed:
+    - source: {{ confluence.keystore_file }}
+    - user: {{ confluence.user_name }}
+    - group: {{ confluence.user_name }}
+    - mode: 640
+
 {% endif -%}
 
 #confluence_running:  
