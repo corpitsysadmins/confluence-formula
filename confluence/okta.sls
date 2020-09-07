@@ -26,13 +26,56 @@ seraph-config.xml|login.url:
     - name: {{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml
     - xpath: ./parameters/init-param[param-name='login.url']/param-value
     - value: {{ okta.login_url }}
+#    - require_in:
+#      - confluence_running
+#    - watch_in:
+#      - confluence_running
     
 seraph-config.xml|logout.url:
   xml.value_present:
     - name: {{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml
     - xpath: ./parameters/init-param[param-name='logout.url']/param-value
     - value: {{ okta.logout_url }}
-#2. Then, you need to update your [confluence_webdir]/WEB-INF/classes/seraph-config.xml
+#    - require_in:
+#      - confluence_running
+#    - watch_in:
+#      - confluence_running
+    
+#seraph-config.xml|remove_authenticators:
+#  xml.value_absent:
+#    - name: {{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml
+#    - xpath: ./authenticator
+#    - exceptions:
+#        - ./authenticator[@class='com.atlassian.confluence.authenticator.okta.OktaConfluenceAuthenticator30']
+#    - require_in:
+#      - confluence_running
+#    - watch_in:
+#      - confluence_running
+
+seraph-config.xml|okta_authenticator:
+  xml.value_present:
+    - name: {{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml
+    - xpath: ./authenticator[@class='com.atlassian.confluence.authenticator.okta.OktaConfluenceAuthenticator30']
+    - value: |
+    <init-param>
+        <param-name>okta.config.file</param-name>
+        <param-value>/path/to/your/okta-config-confluence.xml</param-value>
+    </init-param>
+#    - require_in:
+#      - confluence_running
+#    - watch_in:
+#      - confluence_running
+        
+
+seraph-config.xml|login-url-strategy:
+  xml.value_present:
+    - name: {{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml
+    - xpath: ./login-url-strategy[@class='com.atlassian.confluence.authenticator.okta.OktaConfluenceLoginUrlStrategy']
+    - value: ""
+#    - require_in:
+#      - confluence_running
+#    - watch_in:
+#      - confluence_running
 
 {{ confluence.install_path }}/confluence/okta_acs.jsp:
   file.managed:
