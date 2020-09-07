@@ -55,12 +55,8 @@ seraph-config.xml->logout.url:
 seraph-config.xml->okta_authenticator:
   xml.value_present:
     - name: {{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml
-    - xpath: ./authenticator[@class='com.atlassian.confluence.authenticator.okta.OktaConfluenceAuthenticator30']
-    - value: |
-        <init-param>
-            <param-name>okta.config.file</param-name>
-            <param-value>{{ confluence.install_path ~ '/conf/okta-config-confluence.xml' }}</param-value>
-        </init-param>
+    - xpath: ./authenticator[@class='com.atlassian.confluence.authenticator.okta.OktaConfluenceAuthenticator30']/init-param[param-name='okta.config.file']
+    - value: {{ confluence.install_path }}'/conf/okta-config-confluence.xml'
 #    - require_in:
 #      - confluence_running
 #    - watch_in:
