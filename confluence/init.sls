@@ -17,7 +17,7 @@ confluence_installation:
         export CONF_USER
     - user: {{ confluence.user_name }}
     - group: {{ confluence.user_name }}
-    - mode: 640
+    - mode: 755
 
 {% if confluence["confluence.cfg"] is defined -%}
 
