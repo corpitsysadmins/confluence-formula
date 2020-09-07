@@ -21,7 +21,7 @@
       
 {% endif -%}
 
-seraph-config.xml->login.url:
+{{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml->login.url:
   xml.value_present:
     - name: {{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml
     - xpath: ./parameters/init-param[param-name='login.url']/param-value
@@ -31,7 +31,7 @@ seraph-config.xml->login.url:
 #    - watch_in:
 #      - confluence_running
     
-seraph-config.xml->logout.url:
+{{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml->logout.url:
   xml.value_present:
     - name: {{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml
     - xpath: ./parameters/init-param[param-name='logout.url']/param-value
@@ -41,7 +41,7 @@ seraph-config.xml->logout.url:
 #    - watch_in:
 #      - confluence_running
     
-#seraph-config.xml|remove_authenticators:
+#{{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml->remove_authenticators:
 #  xml.value_absent:
 #    - name: {{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml
 #    - xpath: ./authenticator
@@ -52,7 +52,7 @@ seraph-config.xml->logout.url:
 #    - watch_in:
 #      - confluence_running
 
-seraph-config.xml->okta_authenticator:
+{{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml->okta_authenticator:
   xml.value_present:
     - name: {{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml
     - xpath: ./authenticator[@class='com.atlassian.confluence.authenticator.okta.OktaConfluenceAuthenticator30']/init-param[param-name='okta.config.file']/param-value
@@ -63,7 +63,7 @@ seraph-config.xml->okta_authenticator:
 #      - confluence_running
         
 
-#seraph-config.xml->login-url-strategy:
+#{{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml->login-url-strategy:
 #  xml.value_present:
 #    - name: {{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml
 #    - xpath: ./login-url-strategy[@class='com.atlassian.confluence.authenticator.okta.OktaConfluenceLoginUrlStrategy']
