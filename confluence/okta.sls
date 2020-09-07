@@ -25,6 +25,11 @@
   xml.value_present:
     - xpath: //parameters/init-param[param-name='login.url']/param-value
     - value: {{ okta.login_url }}
+    
+{{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml:
+  xml.value_present:
+    - xpath: //parameters/init-param[param-name='logout.url']/param-value
+    - value: {{ okta.logout_url }}
 #2. Then, you need to update your [confluence_webdir]/WEB-INF/classes/seraph-config.xml
 
 {{ confluence.install_path }}/confluence/okta_acs.jsp:
