@@ -23,7 +23,7 @@
 
 {{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml:
   xml.value_present:
-    - xpath: (/security-config/parameters/init-param[param-name='login.url'])[1]/param-value[1]
+    - xpath: //parameters/init-param[param-name='login.url']/param-value
     - value: {{ okta.login_url }}
 #2. Then, you need to update your [confluence_webdir]/WEB-INF/classes/seraph-config.xml
 
