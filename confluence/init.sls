@@ -8,6 +8,16 @@ confluence_installation:
   pkg.installed:
     - sources:
       - {{ confluence.package_name }}: {{ confluence.package_url }}
+  
+{{ confluence.install_path }}/bin/user.sh:
+  file.managed:
+    - content: |
+        CONF_USER="{{ confluence.user_name }}"
+
+        export CONF_USER
+    - user: {{ confluence.user_name }}
+    - group: {{ confluence.user_name }}
+    - mode: 640
 
 {% if confluence["confluence.cfg"] is defined -%}
 
