@@ -24,13 +24,13 @@
 seraph-config.xml|login.url:
   xml.value_present:
     - name: {{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml
-    - xpath: //parameters/init-param[param-name='login.url']/param-value
+    - xpath: ./parameters/init-param[param-name='login.url']/param-value
     - value: {{ okta.login_url }}
     
 seraph-config.xml|logout.url:
   xml.value_present:
     - name: {{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml
-    - xpath: //parameters/init-param[param-name='logout.url']/param-value
+    - xpath: ./parameters/init-param[param-name='logout.url']/param-value
     - value: {{ okta.logout_url }}
 #2. Then, you need to update your [confluence_webdir]/WEB-INF/classes/seraph-config.xml
 
