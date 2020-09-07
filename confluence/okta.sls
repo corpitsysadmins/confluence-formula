@@ -63,11 +63,11 @@ seraph-config.xml->okta_authenticator:
 #      - confluence_running
         
 
-seraph-config.xml->login-url-strategy:
-  xml.value_present:
-    - name: {{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml
-    - xpath: ./login-url-strategy[@class='com.atlassian.confluence.authenticator.okta.OktaConfluenceLoginUrlStrategy']
-    - value: ""
+#seraph-config.xml->login-url-strategy:
+#  xml.value_present:
+#    - name: {{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml
+#    - xpath: ./login-url-strategy[@class='com.atlassian.confluence.authenticator.okta.OktaConfluenceLoginUrlStrategy']
+#    - value: ""
 #    - require_in:
 #      - confluence_running
 #    - watch_in:
