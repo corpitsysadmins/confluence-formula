@@ -21,12 +21,12 @@
       
 {% endif -%}
 
-{{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml:
+{{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml|login.url:
   xml.value_present:
     - xpath: //parameters/init-param[param-name='login.url']/param-value
     - value: {{ okta.login_url }}
     
-{{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml:
+{{ confluence.install_path }}/confluence/WEB-INF/classes/seraph-config.xml|logout.url:
   xml.value_present:
     - xpath: //parameters/init-param[param-name='logout.url']/param-value
     - value: {{ okta.logout_url }}
