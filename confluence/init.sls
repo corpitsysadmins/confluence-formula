@@ -11,7 +11,7 @@ confluence_installation:
   
 {{ confluence.install_path }}/bin/user.sh:
   file.managed:
-    - content: |
+    - contents: |
         CONF_USER="{{ confluence.user_name }}"
 
         export CONF_USER
