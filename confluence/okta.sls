@@ -59,7 +59,7 @@ seraph-config.xml|okta_authenticator:
     - value: |
     <init-param>
         <param-name>okta.config.file</param-name>
-        <param-value>/path/to/your/okta-config-confluence.xml</param-value>
+        <param-value>{{ confluence.install_path ~ '/conf/okta-config-confluence.xml' }}</param-value>
     </init-param>
 #    - require_in:
 #      - confluence_running
