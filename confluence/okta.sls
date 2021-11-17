@@ -1,7 +1,11 @@
-{%- from "./defaults/map.jinja" import confluence with context -%}
-{%- from "confluence/defaults/okta.jinja" import okta with context -%}
 
-{% if (okta is defined) and (okta.use is defined) -%}
+{%- set default_sources = {'module' : 'confluence', 'defaults' : True, 'pillar' : True, 'grains' : ['os_family']} %}
+{%- from "./defaults/load_config.jinja" import config as confluence with context -%}
+
+{%- set default_sources = {'module' : ['confluence', 'okta'], 'defaults' : True, 'pillar' : True, 'grains' : ['os_family']} %}
+{%- from "./defaults/load_config.jinja" import config as okta with context -%}
+
+{% if okta.use is defined -%}
 
 {% if okta.use | to_bool -%}
 
