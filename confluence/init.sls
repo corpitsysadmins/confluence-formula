@@ -1,13 +1,14 @@
-{%- from "./defaults/map.jinja" import confluence with context -%}
 
-{% if (confluence is defined) and (confluence.use is defined) -%}
+{% set default_sources = {'module' : 'confluence', 'defaults' : True, 'pillar' : True, 'grains' : ['os_family']} %}
+{% from "./defaults/load_config.jinja" import config as confluence with context %}
+
+{% if confluence.use is defined -%}
 
 {% if confluence.use | to_bool -%}
 
 confluence_installation:
   pkg.installed:
-    - sources:
-      - {{ confluence.package_name }}: {{ confluence.package_url }}
+    - sources: {{ confluence.package_list|json }}
   
 {{ confluence.install_path }}/bin/user.sh:
   file.managed:
@@ -19,7 +20,7 @@ confluence_installation:
     - group: {{ confluence.user_name }}
     - mode: 755
 
-{% if confluence["confluence.cfg"] is defined -%}
+{% if confluence.configuration is defined -%}
 
 {{ confluence.confluence_home }}/confluence.cfg.xml:
   file.managed:
@@ -66,7 +67,7 @@ confluence_stopped:
 
 confluence_removal:
   pkg.removed:
-    - name: {{ confluence.package_name }}
+    - pkgs: {{ confluence.package_list.values()|json }}
     - require:
       - service: {{ confluence.service_name }}
 
