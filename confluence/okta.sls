@@ -103,9 +103,10 @@
 #    - watch_in:
 #      - confluence_running
 
-{{ confluence.install_path }}/confluence/WEB-INF/lib/{{ okta.okta_confluence_jar }}:
+{% set okta_confluence_jar = okta.okta_confluence_jar_url.split('/')[-1] %}
+{{ confluence.install_path }}/confluence/WEB-INF/lib/{{ okta_confluence_jar }}:
   file.managed:
-    - source: https://dev.okta.com/static/toolkits/{{ okta.okta_confluence_jar }}
+    - source: {{ okta.okta_confluence_jar_url }}
     - source_hash: {{ okta.okta_confluence_jar_hash }}
     - skip_verify: true
     - user: {{ confluence.user_name }}
