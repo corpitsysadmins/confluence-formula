@@ -106,6 +106,7 @@
 {{ confluence.install_path }}/confluence/WEB-INF/lib/{{ okta.okta_confluence_jar }}:
   file.managed:
     - source: https://dev.okta.com/static/toolkits/{{ okta.okta_confluence_jar }}
+    - source_hash: {{ okta.okta_confluence_jar_hash }}
     - skip_verify: true
     - user: {{ confluence.user_name }}
     - group: {{ confluence.user_name }}
