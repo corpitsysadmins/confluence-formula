@@ -2,7 +2,7 @@ service_name: confluence
 user_name: confluence
 manage_service_start: true
 okta:
-  okta_confluence_jar: okta-confluence-3.1.4.jar
+  okta_confluence_jar: okta-confluence-3.1.5.jar
   okta_acs_jsp: |
     <%@ page import="com.atlassian.confluence.user.AuthenticatedUserThreadLocal" %>
     <%@ page import="org.apache.commons.lang3.StringUtils" %>
