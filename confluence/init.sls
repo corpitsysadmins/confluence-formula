@@ -8,7 +8,8 @@
 
 confluence_installation:
   pkg.installed:
-    - sources: {{ confluence.package_list|json }}
+    - sources:
+      - {{ confluence.package_name }}: {{ confluence.package_url }}
   
 {{ confluence.install_path }}/bin/user.sh:
   file.managed:
